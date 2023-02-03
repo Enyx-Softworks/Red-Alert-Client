@@ -22,6 +22,7 @@ namespace RA_Client
         public static Settings appSettings = new();
         public static string workstationName = "";
         public static string workstationIp = "";
+        public static bool audioMuted = false;
 
         public Form_Main()
         {

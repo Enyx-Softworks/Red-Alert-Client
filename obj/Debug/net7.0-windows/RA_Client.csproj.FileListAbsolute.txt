@@ -37,3 +37,5 @@ D:\Projekte\RedAlert\RA-Client\bin\Debug\net7.0-windows\krb5_64.dll
 D:\Projekte\RedAlert\RA-Client\bin\Debug\net7.0-windows\krbcc64.dll
 D:\Projekte\RedAlert\RA-Client\bin\Debug\net7.0-windows\BouncyCastle.Crypto.dll
 D:\Projekte\RedAlert\RA-Client\obj\Debug\net7.0-windows\RA_Client.Form_Incident.resources
+D:\Projekte\RedAlert\RA-Client\bin\Debug\net7.0-windows\Resources\speaker_active_white.png
+D:\Projekte\RedAlert\RA-Client\bin\Debug\net7.0-windows\Resources\speaker_inactive_white.png

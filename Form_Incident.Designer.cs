@@ -50,9 +50,12 @@
             // 
             // pictureBox_Audio
             // 
-            this.pictureBox_Audio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox_Audio.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_Audio.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox_Audio.ErrorImage = null;
             this.pictureBox_Audio.Image = global::RA_Client.Properties.Resources.speaker_active_white;
-            this.pictureBox_Audio.Location = new System.Drawing.Point(291, 236);
+            this.pictureBox_Audio.InitialImage = null;
+            this.pictureBox_Audio.Location = new System.Drawing.Point(304, 248);
             this.pictureBox_Audio.Name = "pictureBox_Audio";
             this.pictureBox_Audio.Size = new System.Drawing.Size(68, 60);
             this.pictureBox_Audio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
