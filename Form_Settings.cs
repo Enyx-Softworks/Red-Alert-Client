@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
-
-namespace RA_Client
+﻿namespace RA_Client
 {
     public partial class Form_Settings : Form
     {
@@ -37,6 +26,15 @@ namespace RA_Client
             textBox_Conn_DatabaseString.Text = Form_Main.appSettings.DatabaseServer;
             textBox_Conn_Pull_Server.Text = Form_Main.appSettings.PullServer;
             textBox_Conn_Push_Server.Text = Form_Main.appSettings.PushServer;
+
+            checkBox_ShowOnAllMonitors.Checked = Form_Main.appSettings.ShowOnAllMonitors;
+
+            Screen[] screens = Screen.AllScreens;
+            numericUpDown_MonitorNumber.Maximum = screens.Length - 1;
+            numericUpDown_MonitorNumber.Value = Form_Main.appSettings.MonitorNumber;
+
+            checkBox_StartMinimized.Checked = Form_Main.appSettings.StartMinimized;
+
         }
 
         private void Button_Save_Click(object sender, EventArgs e)
@@ -51,6 +49,9 @@ namespace RA_Client
             Form_Main.appSettings.DatabaseServer = textBox_Conn_DatabaseString.Text;
             Form_Main.appSettings.PullServer = textBox_Conn_Pull_Server.Text;
             Form_Main.appSettings.PushServer = textBox_Conn_Push_Server.Text;
+            Form_Main.appSettings.ShowOnAllMonitors = checkBox_ShowOnAllMonitors.Checked;
+            Form_Main.appSettings.MonitorNumber = (int)numericUpDown_MonitorNumber.Value;
+            Form_Main.appSettings.StartMinimized = checkBox_StartMinimized.Checked;
 
             Settings.SaveSettings(Form_Main.appSettings);
         }
@@ -74,6 +75,11 @@ namespace RA_Client
             textBox_Conn_DatabaseString.Enabled = radioButton_Conn_Database.Checked;
             textBox_Conn_Pull_Server.Enabled = radioButton_Conn_Pull.Checked;
             textBox_Conn_Push_Server.Enabled = radioButton_Conn_Push.Checked;
+        }
+
+        private void CheckBox_ShowOnAllMonitors_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDown_MonitorNumber.Enabled = !checkBox_ShowOnAllMonitors.Checked;
         }
     }
 }

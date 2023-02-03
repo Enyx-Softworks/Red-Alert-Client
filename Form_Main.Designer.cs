@@ -36,10 +36,9 @@
             this.contextMenuStrip_Icon = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItem_Show = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.timer_Database = new System.Windows.Forms.Timer(this.components);
+            this.button_CheckForIncident = new System.Windows.Forms.Button();
             this.contextMenuStrip_Icon.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.SuspendLayout();
             // 
             // button_Exit
@@ -93,43 +92,38 @@
             this.ToolStripMenuItem_Exit.Text = "&Beenden";
             this.ToolStripMenuItem_Exit.Click += new System.EventHandler(this.ToolStripMenuItem_Exit_Click);
             // 
-            // webView21
-            // 
-            this.webView21.AllowExternalDrop = true;
-            this.webView21.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webView21.CreationProperties = null;
-            this.webView21.DefaultBackgroundColor = System.Drawing.Color.White;
-            this.webView21.Location = new System.Drawing.Point(12, 12);
-            this.webView21.Name = "webView21";
-            this.webView21.Size = new System.Drawing.Size(401, 184);
-            this.webView21.Source = new System.Uri("file:///D:/Projekte/RedAlert/incident_01.html", System.UriKind.Absolute);
-            this.webView21.TabIndex = 2;
-            this.webView21.ZoomFactor = 1D;
-            // 
             // timer_Database
             // 
             this.timer_Database.Interval = 1000;
             this.timer_Database.Tick += new System.EventHandler(this.Timer_Database_Tick);
+            // 
+            // button_CheckForIncident
+            // 
+            this.button_CheckForIncident.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_CheckForIncident.Location = new System.Drawing.Point(162, 202);
+            this.button_CheckForIncident.Name = "button_CheckForIncident";
+            this.button_CheckForIncident.Size = new System.Drawing.Size(126, 23);
+            this.button_CheckForIncident.TabIndex = 3;
+            this.button_CheckForIncident.Text = "Check";
+            this.button_CheckForIncident.UseVisualStyleBackColor = true;
+            this.button_CheckForIncident.Click += new System.EventHandler(this.Button_CheckForIncident_Click);
             // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(425, 237);
-            this.Controls.Add(this.webView21);
+            this.Controls.Add(this.button_CheckForIncident);
             this.Controls.Add(this.button_Settings);
             this.Controls.Add(this.button_Exit);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "RedAlert";
+            this.Text = "RedAlert - Client";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Main_FormClosing);
             this.Load += new System.EventHandler(this.Form_Main_Load);
             this.Resize += new System.EventHandler(this.Form_Main_Resize);
             this.contextMenuStrip_Icon.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -142,7 +136,7 @@
         private ContextMenuStrip contextMenuStrip_Icon;
         private ToolStripMenuItem ToolStripMenuItem_Show;
         private ToolStripMenuItem ToolStripMenuItem_Exit;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
         private System.Windows.Forms.Timer timer_Database;
+        private Button button_CheckForIncident;
     }
 }

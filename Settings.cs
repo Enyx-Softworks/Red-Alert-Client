@@ -8,6 +8,9 @@ namespace RA_Client
         public string? DatabaseServer { get; set; }
         public string? PullServer { get; set; }
         public string? PushServer { get; set; }
+        public bool ShowOnAllMonitors { get; set; }
+        public int MonitorNumber { get; set; }
+        public bool StartMinimized { get; set; }
 
         public static void LoadSettings()
         {
@@ -17,6 +20,10 @@ namespace RA_Client
             Form_Main.appSettings.DatabaseServer = xDoc.Elements("root").Elements("database_server").First().Value.ToString();
             Form_Main.appSettings.PullServer = xDoc.Elements("root").Elements("pull_server").First().Value.ToString();
             Form_Main.appSettings.PushServer = xDoc.Elements("root").Elements("push_server").First().Value.ToString();
+            Form_Main.appSettings.ShowOnAllMonitors = bool.TryParse(xDoc.Elements("root").Elements("show_on_all_monitors").First().Value.ToString(), out bool _showonallmonitors) == true ? _showonallmonitors : false;
+            Form_Main.appSettings.MonitorNumber = int.TryParse(xDoc.Elements("root").Elements("monitor_number").First().Value.ToString(), out int _monitornumber) == true ? _monitornumber : 0;
+            Form_Main.appSettings.StartMinimized = bool.TryParse(xDoc.Elements("root").Elements("start_minimized").First().Value.ToString(), out bool _startminimized) == true ? _startminimized : false;
+
         }
 
         public static void SaveSettings(Settings settings)
@@ -34,10 +41,16 @@ namespace RA_Client
                 XElement settings_connection_database = new("database_server", settings.DatabaseServer);
                 XElement settings_connection_pullserver = new("pull_server", settings.PullServer);
                 XElement settings_connection_pushserver = new("push_server", settings.PushServer);
+                XElement settings_app_showonallmonitors = new("show_on_all_monitors", settings.ShowOnAllMonitors);
+                XElement settings_app_monitornumber = new("monitor_number", settings.MonitorNumber);
+                XElement settings_app_startminimized = new("start_minimized", settings.StartMinimized);
 
                 root.Add(settings_connection_database);
                 root.Add(settings_connection_pullserver);
                 root.Add(settings_connection_pushserver);
+                root.Add(settings_app_showonallmonitors);
+                root.Add(settings_app_monitornumber);
+                root.Add(settings_app_startminimized);
 
                 xDoc.Save(Path.Combine(Application.CommonAppDataPath, "settings.xml"));
             }

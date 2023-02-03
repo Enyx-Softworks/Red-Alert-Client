@@ -37,13 +37,17 @@
             this.radioButton_Conn_Pull = new System.Windows.Forms.RadioButton();
             this.textBox_Conn_DatabaseString = new System.Windows.Forms.TextBox();
             this.radioButton_Conn_Database = new System.Windows.Forms.RadioButton();
+            this.checkBox_ShowOnAllMonitors = new System.Windows.Forms.CheckBox();
+            this.numericUpDown_MonitorNumber = new System.Windows.Forms.NumericUpDown();
+            this.checkBox_StartMinimized = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MonitorNumber)).BeginInit();
             this.SuspendLayout();
             // 
             // button_Save
             // 
             this.button_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_Save.Location = new System.Drawing.Point(12, 251);
+            this.button_Save.Location = new System.Drawing.Point(12, 411);
             this.button_Save.Name = "button_Save";
             this.button_Save.Size = new System.Drawing.Size(75, 23);
             this.button_Save.TabIndex = 1;
@@ -54,7 +58,7 @@
             // button_Close
             // 
             this.button_Close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Close.Location = new System.Drawing.Point(250, 251);
+            this.button_Close.Location = new System.Drawing.Point(250, 411);
             this.button_Close.Name = "button_Close";
             this.button_Close.Size = new System.Drawing.Size(75, 23);
             this.button_Close.TabIndex = 2;
@@ -79,6 +83,7 @@
             // 
             // textBox_Conn_Push_Server
             // 
+            this.textBox_Conn_Push_Server.Enabled = false;
             this.textBox_Conn_Push_Server.Location = new System.Drawing.Point(34, 165);
             this.textBox_Conn_Push_Server.Name = "textBox_Conn_Push_Server";
             this.textBox_Conn_Push_Server.Size = new System.Drawing.Size(251, 23);
@@ -87,6 +92,7 @@
             // radioButton_Conn_Push
             // 
             this.radioButton_Conn_Push.AutoSize = true;
+            this.radioButton_Conn_Push.Enabled = false;
             this.radioButton_Conn_Push.Location = new System.Drawing.Point(15, 140);
             this.radioButton_Conn_Push.Name = "radioButton_Conn_Push";
             this.radioButton_Conn_Push.Size = new System.Drawing.Size(140, 19);
@@ -98,6 +104,7 @@
             // 
             // textBox_Conn_Pull_Server
             // 
+            this.textBox_Conn_Pull_Server.Enabled = false;
             this.textBox_Conn_Pull_Server.Location = new System.Drawing.Point(34, 111);
             this.textBox_Conn_Pull_Server.Name = "textBox_Conn_Pull_Server";
             this.textBox_Conn_Pull_Server.Size = new System.Drawing.Size(251, 23);
@@ -106,6 +113,7 @@
             // radioButton_Conn_Pull
             // 
             this.radioButton_Conn_Pull.AutoSize = true;
+            this.radioButton_Conn_Pull.Enabled = false;
             this.radioButton_Conn_Pull.Location = new System.Drawing.Point(15, 86);
             this.radioButton_Conn_Pull.Name = "radioButton_Conn_Pull";
             this.radioButton_Conn_Pull.Size = new System.Drawing.Size(123, 19);
@@ -134,11 +142,42 @@
             this.radioButton_Conn_Database.UseVisualStyleBackColor = true;
             this.radioButton_Conn_Database.CheckedChanged += new System.EventHandler(this.RadioButton_Conn_Database_CheckedChanged);
             // 
+            // checkBox_ShowOnAllMonitors
+            // 
+            this.checkBox_ShowOnAllMonitors.AutoSize = true;
+            this.checkBox_ShowOnAllMonitors.Location = new System.Drawing.Point(26, 255);
+            this.checkBox_ShowOnAllMonitors.Name = "checkBox_ShowOnAllMonitors";
+            this.checkBox_ShowOnAllMonitors.Size = new System.Drawing.Size(215, 19);
+            this.checkBox_ShowOnAllMonitors.TabIndex = 10;
+            this.checkBox_ShowOnAllMonitors.Text = "Alarm auf allen Monitoren anzeigen";
+            this.checkBox_ShowOnAllMonitors.UseVisualStyleBackColor = true;
+            this.checkBox_ShowOnAllMonitors.CheckedChanged += new System.EventHandler(this.CheckBox_ShowOnAllMonitors_CheckedChanged);
+            // 
+            // numericUpDown_MonitorNumber
+            // 
+            this.numericUpDown_MonitorNumber.Location = new System.Drawing.Point(46, 280);
+            this.numericUpDown_MonitorNumber.Name = "numericUpDown_MonitorNumber";
+            this.numericUpDown_MonitorNumber.Size = new System.Drawing.Size(41, 23);
+            this.numericUpDown_MonitorNumber.TabIndex = 11;
+            // 
+            // checkBox_StartMinimized
+            // 
+            this.checkBox_StartMinimized.AutoSize = true;
+            this.checkBox_StartMinimized.Location = new System.Drawing.Point(26, 322);
+            this.checkBox_StartMinimized.Name = "checkBox_StartMinimized";
+            this.checkBox_StartMinimized.Size = new System.Drawing.Size(117, 19);
+            this.checkBox_StartMinimized.TabIndex = 12;
+            this.checkBox_StartMinimized.Text = "Minimiert starten";
+            this.checkBox_StartMinimized.UseVisualStyleBackColor = true;
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 286);
+            this.ClientSize = new System.Drawing.Size(337, 446);
+            this.Controls.Add(this.checkBox_StartMinimized);
+            this.Controls.Add(this.numericUpDown_MonitorNumber);
+            this.Controls.Add(this.checkBox_ShowOnAllMonitors);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_Close);
             this.Controls.Add(this.button_Save);
@@ -148,7 +187,9 @@
             this.Load += new System.EventHandler(this.Form_Settings_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_MonitorNumber)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -162,5 +203,8 @@
         private RadioButton radioButton_Conn_Pull;
         private TextBox textBox_Conn_DatabaseString;
         private RadioButton radioButton_Conn_Database;
+        private CheckBox checkBox_ShowOnAllMonitors;
+        private NumericUpDown numericUpDown_MonitorNumber;
+        private CheckBox checkBox_StartMinimized;
     }
 }
