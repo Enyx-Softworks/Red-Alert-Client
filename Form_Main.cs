@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using static RA_Client.Helper;
+using static RA_Client.Program;
 
 namespace RA_Client
 {
@@ -23,7 +25,11 @@ namespace RA_Client
         public static Settings appSettings = new();
         public static string workstationName = "";
         public static string workstationIp = "";
+        public static string windowsUser = "";
+        public static ADUser? adUser = null;
         public static bool audioMuted = false;
+
+        public bool iconTimerStatus = false;
 
         public Form_Main()
         {
@@ -32,24 +38,19 @@ namespace RA_Client
 
         private void Form_Main_Load(object sender, EventArgs e)
         {
-            this.Text = Assembly.GetExecutingAssembly().GetName().Name + " (v" + Assembly.GetExecutingAssembly().GetName().Version.ToString() + ")";
+            Text = Assembly.GetExecutingAssembly().GetName().Name + " (v" + Assembly.GetExecutingAssembly().GetName().Version.ToString() + ")";
+            notifyIcon1.Text = Text;
 
             Settings.LoadSettings();
 
-            workstationName = Environment.MachineName;
-
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ipAddress in host.AddressList)
-            {
-                if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    workstationIp = ipAddress.ToString();
-                    break;
-                }
-            }
+            workstationName = Helper.GetMachineName();
+            workstationIp = Helper.GetMachineIp();
+            windowsUser = Helper.GetWindowsUser();
+            adUser = Helper.GetADUser();
 
             // Register workstation at server
-            Database.RegisterClientOnServer(workstationName, workstationIp);
+            Database.RegisterClientOnServer(workstationName, workstationIp, windowsUser);
+
         }
 
         private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -62,22 +63,32 @@ namespace RA_Client
 
         private void Form_Main_Resize(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Minimized)
+            if (WindowState == FormWindowState.Minimized)
             {
-                this.Hide();
-            }
-            else
-            {
-                this.Show();
+                Hide();
             }
         }
 
         private void NotifyIcon1_DoubleClick(object sender, EventArgs e)
         {
-            this.Show();
-            this.WindowState = FormWindowState.Normal;
-            this.BringToFront();
-            this.Focus();
+            Show();
+            WindowState = FormWindowState.Normal;
+            Activate();
+            BringToFront();
+            Focus();
+        }
+
+        /// <summary>
+        /// Override for WndProc to receive a custom message
+        /// </summary>
+        /// <param name="m"></param>
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == NativeMethods.WM_SHOWME)
+            {
+                NotifyIcon1_DoubleClick(this, new EventArgs());
+            }
+            base.WndProc(ref m);
         }
 
         private void ToolStripMenuItem_Show_Click(object sender, EventArgs e)
@@ -87,12 +98,12 @@ namespace RA_Client
 
         private void ToolStripMenuItem_Exit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void Button_Exit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void Button_Settings_Click(object sender, EventArgs e)
@@ -113,6 +124,7 @@ namespace RA_Client
 
             if (active)
             {
+                timer_Icon.Enabled = true;
 
                 Screen[] screens = Screen.AllScreens;
 
@@ -167,8 +179,29 @@ namespace RA_Client
                     nRet = mciSendString("play " + sAliasName + " repeat", sb, 0, IntPtr.Zero);
                 }
             }
+            else
+            {
+                timer_Icon.Enabled = false;
+                notifyIcon1.Icon = Helper.BytesToIcon(Properties.Resources.ra_icon);
+                iconTimerStatus = true;
+            }
 
         }
+
+        private void Timer_Icon_Tick(object sender, EventArgs e)
+        {
+            if (iconTimerStatus == true)
+            {
+                notifyIcon1.Icon = Helper.BytesToIcon(Properties.Resources.ra_icon);
+            }
+            else
+            {
+                notifyIcon1.Icon = Helper.BytesToIcon(Properties.Resources.ra_icon_white);
+            }
+
+            iconTimerStatus = !iconTimerStatus;
+        }
+
 
     }
 }

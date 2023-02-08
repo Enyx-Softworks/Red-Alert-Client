@@ -38,6 +38,7 @@
             this.ToolStripMenuItem_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.timer_Database = new System.Windows.Forms.Timer(this.components);
             this.button_CheckForIncident = new System.Windows.Forms.Button();
+            this.timer_Icon = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip_Icon.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,6 +46,7 @@
             // 
             this.button_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Exit.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.button_Exit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button_Exit.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.button_Exit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -60,6 +62,7 @@
             // 
             this.button_Settings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button_Settings.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.button_Settings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button_Settings.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.button_Settings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.button_Settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -77,6 +80,7 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
+            this.notifyIcon1.DoubleClick += new System.EventHandler(this.NotifyIcon1_DoubleClick);
             // 
             // contextMenuStrip_Icon
             // 
@@ -108,17 +112,22 @@
             // button_CheckForIncident
             // 
             this.button_CheckForIncident.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_CheckForIncident.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.button_CheckForIncident.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button_CheckForIncident.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button_CheckForIncident.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.button_CheckForIncident.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.button_CheckForIncident.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_CheckForIncident.Location = new System.Drawing.Point(144, 190);
+            this.button_CheckForIncident.Location = new System.Drawing.Point(160, 71);
             this.button_CheckForIncident.Name = "button_CheckForIncident";
             this.button_CheckForIncident.Size = new System.Drawing.Size(126, 35);
             this.button_CheckForIncident.TabIndex = 3;
             this.button_CheckForIncident.Text = "Check";
             this.button_CheckForIncident.UseVisualStyleBackColor = false;
             this.button_CheckForIncident.Click += new System.EventHandler(this.Button_CheckForIncident_Click);
+            // 
+            // timer_Icon
+            // 
+            this.timer_Icon.Tick += new System.EventHandler(this.Timer_Icon_Tick);
             // 
             // Form_Main
             // 
@@ -151,5 +160,6 @@
         private ToolStripMenuItem ToolStripMenuItem_Exit;
         private System.Windows.Forms.Timer timer_Database;
         private Button button_CheckForIncident;
+        private System.Windows.Forms.Timer timer_Icon;
     }
 }

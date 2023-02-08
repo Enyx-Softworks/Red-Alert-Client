@@ -1,13 +1,17 @@
 ﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
 using System.Diagnostics;
+using System.DirectoryServices;
 using System.Xml.Linq;
+using static RA_Client.Helper;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RA_Client
 {
     public class Database
     {
-        public static void RegisterClientOnServer(string name, string ip)
+        public static void RegisterClientOnServer(string name, string ip, string adUser)
         {
             MySqlConnection conn = new(Form_Main.appSettings.DatabaseServer);
 
@@ -32,11 +36,11 @@ namespace RA_Client
                     MySqlCommand updateCommand = conn.CreateCommand();
                     updateCommand.CommandText = "INSERT INTO clients " +
                         "(" +
-                        "name, ip, last_connection" +
+                        "name, ip, last_connection, user" +
                         ") " +
                         "VALUES " +
                         "(" +
-                        $"'{name}','{ip}','{DateTime.Now:yyyy-MM-dd HH:mm:ss}' " +
+                        $"'{name}','{ip}','{DateTime.Now:yyyy-MM-dd HH:mm:ss}', {adUser} " +
                         ")";
 
                     updateCommand.ExecuteNonQuery();
@@ -46,7 +50,7 @@ namespace RA_Client
 
                     MySqlCommand updateCommand = conn.CreateCommand();
                     updateCommand.CommandText = "UPDATE clients SET " +
-                        $"name='{name}', ip='{ip}', last_connection='{DateTime.Now:yyyy-MM-dd HH:mm:ss}', online=1 " +
+                        $"name='{name}', ip='{ip}', last_connection='{DateTime.Now:yyyy-MM-dd HH:mm:ss}', online=1, user='{adUser}' " +
                         $"WHERE name='{name}' AND ip='{ip}'";
 
                     updateCommand.ExecuteNonQuery();
