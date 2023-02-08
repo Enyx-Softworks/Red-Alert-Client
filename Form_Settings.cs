@@ -34,6 +34,7 @@
             numericUpDown_MonitorNumber.Value = Form_Main.appSettings.MonitorNumber;
 
             checkBox_StartMinimized.Checked = Form_Main.appSettings.StartMinimized;
+            checkBox_UnmuteOnAlert.Checked = Form_Main.appSettings.UnmuteOnAlert;
 
         }
 
@@ -52,8 +53,11 @@
             Form_Main.appSettings.ShowOnAllMonitors = checkBox_ShowOnAllMonitors.Checked;
             Form_Main.appSettings.MonitorNumber = (int)numericUpDown_MonitorNumber.Value;
             Form_Main.appSettings.StartMinimized = checkBox_StartMinimized.Checked;
+            Form_Main.appSettings.UnmuteOnAlert = checkBox_UnmuteOnAlert.Checked;
 
             Settings.SaveSettings(Form_Main.appSettings);
+
+            Button_Close_Click(sender, e);
         }
 
         private void RadioButton_Conn_Database_CheckedChanged(object sender, EventArgs e)

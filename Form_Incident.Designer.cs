@@ -41,7 +41,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.webView_Incident.CreationProperties = null;
-            this.webView_Incident.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webView_Incident.DefaultBackgroundColor = System.Drawing.Color.Transparent;
             this.webView_Incident.Location = new System.Drawing.Point(12, 12);
             this.webView_Incident.Name = "webView_Incident";
             this.webView_Incident.Size = new System.Drawing.Size(347, 284);
@@ -50,12 +50,13 @@
             // 
             // pictureBox_Audio
             // 
+            this.pictureBox_Audio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox_Audio.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox_Audio.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox_Audio.ErrorImage = null;
             this.pictureBox_Audio.Image = global::RA_Client.Properties.Resources.speaker_active_white;
             this.pictureBox_Audio.InitialImage = null;
-            this.pictureBox_Audio.Location = new System.Drawing.Point(304, 248);
+            this.pictureBox_Audio.Location = new System.Drawing.Point(291, 236);
             this.pictureBox_Audio.Name = "pictureBox_Audio";
             this.pictureBox_Audio.Size = new System.Drawing.Size(68, 60);
             this.pictureBox_Audio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -74,6 +75,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Incident";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Incident_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.webView_Incident)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Audio)).EndInit();
             this.ResumeLayout(false);

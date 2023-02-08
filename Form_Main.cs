@@ -1,6 +1,7 @@
 using MySql.Data.MySqlClient;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -31,6 +32,8 @@ namespace RA_Client
 
         private void Form_Main_Load(object sender, EventArgs e)
         {
+            this.Text = Assembly.GetExecutingAssembly().GetName().Name + " (v" + Assembly.GetExecutingAssembly().GetName().Version.ToString() + ")";
+
             Settings.LoadSettings();
 
             workstationName = Environment.MachineName;
@@ -95,7 +98,8 @@ namespace RA_Client
         private void Button_Settings_Click(object sender, EventArgs e)
         {
             Form_Settings form_Settings = new();
-            form_Settings.ShowDialog();
+            if (form_Settings.ShowDialog() == DialogResult.OK)
+                Settings.LoadSettings();
         }
 
         private void Timer_Database_Tick(object sender, EventArgs e)
@@ -148,18 +152,20 @@ namespace RA_Client
                     form_Incident.webView_Incident.Update();
                 }
 
-                // Force system wide unmute of audio
-                // SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle, (IntPtr)APPCOMMAND_VOLUME_MUTE);
-                // Multiple messages increase the volume
-                SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle, (IntPtr)APPCOMMAND_VOLUME_UP);
+                if (appSettings.UnmuteOnAlert == true)
+                {
+                    // Force system wide unmute of audio
+                    // SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle, (IntPtr)APPCOMMAND_VOLUME_MUTE);
+                    // Multiple messages increase the volume
+                    SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle, (IntPtr)APPCOMMAND_VOLUME_UP);
 
-                StringBuilder sb = new();
-                string sFileName = Path.Combine(Application.CommonAppDataPath, "tas_red_alert.mp3");
-                string sAliasName = "MP3";
+                    StringBuilder sb = new();
+                    string sFileName = Path.Combine(Application.CommonAppDataPath, "tas_red_alert.mp3");
+                    string sAliasName = "MP3";
 
-                int nRet = mciSendString("open \"" + sFileName + "\" alias " + sAliasName, sb, 0, IntPtr.Zero);
-                nRet = mciSendString("play " + sAliasName + " repeat", sb, 0, IntPtr.Zero);
-
+                    int nRet = mciSendString("open \"" + sFileName + "\" alias " + sAliasName, sb, 0, IntPtr.Zero);
+                    nRet = mciSendString("play " + sAliasName + " repeat", sb, 0, IntPtr.Zero);
+                }
             }
 
         }

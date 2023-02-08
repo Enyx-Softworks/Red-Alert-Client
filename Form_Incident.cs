@@ -12,6 +12,8 @@ namespace RA_Client
         private const int WM_APPCOMMAND = 0x319;
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessageW(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+        [DllImport("Winmm.dll", SetLastError = true)]
+        static extern int mciSendString(string lpszCommand, [MarshalAs(UnmanagedType.LPStr)] StringBuilder lpszReturnString, int cchReturn, IntPtr hwndCallback);
 
         public Form_Incident()
         {
@@ -37,6 +39,18 @@ namespace RA_Client
             }
 
             Form_Main.audioMuted = !Form_Main.audioMuted;
+        }
+
+        private void Form_Incident_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Stop playing the audio file
+            StringBuilder sb = new();
+            string sFileName = Path.Combine(Application.CommonAppDataPath, "tas_red_alert.mp3");
+            string sAliasName = "MP3";
+
+            int nRet = mciSendString("open \"" + sFileName + "\" alias " + sAliasName, sb, 0, IntPtr.Zero);
+            nRet = mciSendString("stop " + sAliasName, sb, 0, IntPtr.Zero);
+
         }
     }
 }

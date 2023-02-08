@@ -1666,7 +1666,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "D:\\Projekte\\RedAlert\\RA-Client\\RA_Client.csproj",
-      "projectName": "RA_Client",
+      "projectName": "RedAlert-Client",
       "projectPath": "D:\\Projekte\\RedAlert\\RA-Client\\RA_Client.csproj",
       "packagesPath": "C:\\Users\\jeul\\.nuget\\packages\\",
       "outputPath": "D:\\Projekte\\RedAlert\\RA-Client\\obj\\",
