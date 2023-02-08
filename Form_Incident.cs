@@ -41,6 +41,11 @@ namespace RA_Client
             Form_Main.audioMuted = !Form_Main.audioMuted;
         }
 
+        private void PictureBox_Close_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         private void Form_Incident_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Stop playing the audio file

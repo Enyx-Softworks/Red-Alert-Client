@@ -1,4 +1,5 @@
 using MySql.Data.MySqlClient;
+using RA_Client.Models;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
@@ -30,6 +31,7 @@ namespace RA_Client
         public static bool audioMuted = false;
 
         public bool iconTimerStatus = false;
+        public bool incidentsActive = false;
 
         public Form_Main()
         {
@@ -57,6 +59,9 @@ namespace RA_Client
         {
             // Unregister workstation from server
             Database.UnregisterClientOnServer(workstationName, workstationIp);
+
+            // Remove temporary files
+            Helper.RemoveTempFiles();
 
             notifyIcon1.Dispose();
         }
@@ -113,79 +118,35 @@ namespace RA_Client
                 Settings.LoadSettings();
         }
 
-        private void Timer_Database_Tick(object sender, EventArgs e)
+        private void Timer_Incident_Tick(object sender, EventArgs e)
         {
-            Database.CheckForIncident();
+            if (incidentsActive == false)
+            {
+                incidentsActive = true;
+                List<Incident> _incidentList = Helper.GetIncidents();
+                if (_incidentList.Count > 0)
+                {
+                    Helper.ShowIncidents(this, _incidentList);
+                }
+            }
         }
 
         private void Button_CheckForIncident_Click(object sender, EventArgs e)
         {
-            (bool active, string _htmlFile) = Database.CheckForIncident();
+            List<Incident> _incidentList = Helper.GetIncidents();
 
-            if (active)
+            if (_incidentList.Count > 0)
             {
-                timer_Icon.Enabled = true;
-
-                Screen[] screens = Screen.AllScreens;
-
-                if (appSettings.ShowOnAllMonitors == true)
-                {
-                    foreach (Screen screen in screens)
-                    {
-                        Form_Incident form_Incident = new()
-                        {
-                            Location = screen.WorkingArea.Location,
-                            FormBorderStyle = FormBorderStyle.None,
-                            TopMost = true,
-                            WindowState = FormWindowState.Maximized
-                        };
-
-                        form_Incident.Show();
-
-                        form_Incident.webView_Incident.Source = new Uri(_htmlFile);
-                        form_Incident.webView_Incident.Update();
-                    }
-                }
-                else
-                {
-                    Form_Incident form_Incident = new()
-                    {
-                        Location = screens[appSettings.MonitorNumber].WorkingArea.Location,
-                        FormBorderStyle = FormBorderStyle.None,
-                        TopMost = true,
-                        WindowState = FormWindowState.Maximized
-                    };
-
-                    form_Incident.Show();
-
-                    form_Incident.webView_Incident.Source = new Uri(_htmlFile);
-                    //form_Incident.webView_Incident.CoreWebView2.IsMuted = !form_Incident.webView_Incident.CoreWebView2.IsMuted;
-
-                    form_Incident.webView_Incident.Update();
-                }
-
-                if (appSettings.UnmuteOnAlert == true)
-                {
-                    // Force system wide unmute of audio
-                    // SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle, (IntPtr)APPCOMMAND_VOLUME_MUTE);
-                    // Multiple messages increase the volume
-                    SendMessageW(this.Handle, WM_APPCOMMAND, this.Handle, (IntPtr)APPCOMMAND_VOLUME_UP);
-
-                    StringBuilder sb = new();
-                    string sFileName = Path.Combine(Application.CommonAppDataPath, "tas_red_alert.mp3");
-                    string sAliasName = "MP3";
-
-                    int nRet = mciSendString("open \"" + sFileName + "\" alias " + sAliasName, sb, 0, IntPtr.Zero);
-                    nRet = mciSendString("play " + sAliasName + " repeat", sb, 0, IntPtr.Zero);
-                }
+                incidentsActive = true;
+                Helper.ShowIncidents(this, _incidentList);
             }
             else
             {
                 timer_Icon.Enabled = false;
                 notifyIcon1.Icon = Helper.BytesToIcon(Properties.Resources.ra_icon);
                 iconTimerStatus = true;
+                incidentsActive = false;
             }
-
         }
 
         private void Timer_Icon_Tick(object sender, EventArgs e)

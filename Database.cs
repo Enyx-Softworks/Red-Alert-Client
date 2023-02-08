@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
+using RA_Client.Models;
 using System.Diagnostics;
 using System.DirectoryServices;
 using System.Xml.Linq;
@@ -102,10 +103,10 @@ namespace RA_Client
 
         }
 
-        public static (bool, string) CheckForIncident()
+        public static List<Incident> CheckForIncidents()
         {
             MySqlConnection conn = new(Form_Main.appSettings.DatabaseServer);
-            bool _incidentActive = false;
+            List<Incident> _incidentList = new();
 
             try
             {
@@ -116,15 +117,19 @@ namespace RA_Client
 
                 MySqlDataReader reader = selectCommand.ExecuteReader();
 
-                if (reader.Read())
+                while (reader.Read())
                 {
-                    string label = reader.GetString(reader.GetOrdinal("label"));
-                    string html = reader.GetString(reader.GetOrdinal("html"));
-                    _incidentActive = true;
+                    string _label = reader.GetString(reader.GetOrdinal("label"));
+                    string _html = reader.GetString(reader.GetOrdinal("html"));
 
-                    StreamWriter sw = File.CreateText(Path.Combine(Application.CommonAppDataPath, "temp.html"));
-                    sw.WriteLine(html);
-                    sw.Close();
+                    Incident _incident = new()
+                    {
+                        active = true,
+                        label = _label,
+                        html = _html
+                    };
+
+                    _incidentList.Add(_incident);
 
                 }
 
@@ -143,7 +148,8 @@ namespace RA_Client
                 conn.Close();
             }
 
-            return (_incidentActive, Path.Combine(Application.CommonAppDataPath, "temp.html"));
+            //return (_incidentActive, Path.Combine(Application.CommonAppDataPath, "temp.html"));
+            return _incidentList;
         }
 
 

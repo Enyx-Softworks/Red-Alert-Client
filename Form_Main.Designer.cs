@@ -36,7 +36,7 @@
             this.contextMenuStrip_Icon = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItem_Show = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer_Database = new System.Windows.Forms.Timer(this.components);
+            this.timer_Incident = new System.Windows.Forms.Timer(this.components);
             this.button_CheckForIncident = new System.Windows.Forms.Button();
             this.timer_Icon = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip_Icon.SuspendLayout();
@@ -104,10 +104,11 @@
             this.ToolStripMenuItem_Exit.Text = "&Beenden";
             this.ToolStripMenuItem_Exit.Click += new System.EventHandler(this.ToolStripMenuItem_Exit_Click);
             // 
-            // timer_Database
+            // timer_Incident
             // 
-            this.timer_Database.Interval = 1000;
-            this.timer_Database.Tick += new System.EventHandler(this.Timer_Database_Tick);
+            this.timer_Incident.Enabled = true;
+            this.timer_Incident.Interval = 1000;
+            this.timer_Incident.Tick += new System.EventHandler(this.Timer_Incident_Tick);
             // 
             // button_CheckForIncident
             // 
@@ -158,8 +159,8 @@
         private ContextMenuStrip contextMenuStrip_Icon;
         private ToolStripMenuItem ToolStripMenuItem_Show;
         private ToolStripMenuItem ToolStripMenuItem_Exit;
-        private System.Windows.Forms.Timer timer_Database;
+        private System.Windows.Forms.Timer timer_Incident;
         private Button button_CheckForIncident;
-        private System.Windows.Forms.Timer timer_Icon;
+        public System.Windows.Forms.Timer timer_Icon;
     }
 }

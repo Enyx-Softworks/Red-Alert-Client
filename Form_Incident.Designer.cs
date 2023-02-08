@@ -30,8 +30,10 @@
         {
             this.webView_Incident = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.pictureBox_Audio = new System.Windows.Forms.PictureBox();
+            this.pictureBox_Close = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.webView_Incident)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Audio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Close)).BeginInit();
             this.SuspendLayout();
             // 
             // webView_Incident
@@ -64,11 +66,28 @@
             this.pictureBox_Audio.TabStop = false;
             this.pictureBox_Audio.Click += new System.EventHandler(this.PictureBox_Audio_Click);
             // 
+            // pictureBox_Close
+            // 
+            this.pictureBox_Close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox_Close.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_Close.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox_Close.ErrorImage = null;
+            this.pictureBox_Close.Image = global::RA_Client.Properties.Resources.close;
+            this.pictureBox_Close.InitialImage = null;
+            this.pictureBox_Close.Location = new System.Drawing.Point(12, 236);
+            this.pictureBox_Close.Name = "pictureBox_Close";
+            this.pictureBox_Close.Size = new System.Drawing.Size(68, 60);
+            this.pictureBox_Close.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox_Close.TabIndex = 5;
+            this.pictureBox_Close.TabStop = false;
+            this.pictureBox_Close.Click += new System.EventHandler(this.PictureBox_Close_Click);
+            // 
             // Form_Incident
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(371, 308);
+            this.Controls.Add(this.pictureBox_Close);
             this.Controls.Add(this.pictureBox_Audio);
             this.Controls.Add(this.webView_Incident);
             this.Name = "Form_Incident";
@@ -78,6 +97,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Incident_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.webView_Incident)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Audio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Close)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -86,5 +106,6 @@
 
         internal Microsoft.Web.WebView2.WinForms.WebView2 webView_Incident;
         private PictureBox pictureBox_Audio;
+        private PictureBox pictureBox_Close;
     }
 }
